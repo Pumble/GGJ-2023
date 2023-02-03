@@ -3,22 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * Referencias:
+ * Campos serializados: https://youtu.be/6CDzZeI4OX8
+ */
 [Serializable]
 public class Mission
 {
     #region Datos
-    private string name;
-    private string code;
-    private string description;
-    private List<bool> flags;
-    private List<Mission> missions;
+    [SerializeField] private string name;
+    [SerializeField] private string code;
+    [SerializeField] private string description;
+    [SerializeField] private List<bool> flags;
+    [SerializeField] private List<Mission> missions;
 
     // Objects
-    private GameObject reward;
+    [SerializeField] private GameObject reward;
 
     // Dialogues
-    private Dialogue requestDialogue;
-    private Dialogue completedMissionDialogue;
+    [SerializeField] private Dialogue requestDialogue;
+    [SerializeField] private Dialogue completedMissionDialogue;
     #endregion
 
     #region Propiedades
@@ -56,10 +60,11 @@ public class Mission
 [Serializable]
 public class Dialogue
 {
-    private string name; // Nombre del personaje
-    private string text;
-    private string image;
-    private bool side; // false: izquierda, true: derecha
+
+    [SerializeField] private string name; // Nombre del personaje
+    [SerializeField] private string text;
+    [SerializeField] private string image;
+    [SerializeField] private bool side; // false: izquierda, true: derecha
 
     public Dialogue(string name, string text, string image, bool side)
     {
