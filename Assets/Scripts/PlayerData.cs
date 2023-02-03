@@ -6,7 +6,7 @@ public class PlayerData
 
     public PlayerData(Player p)
     {
-        this.name = p.Name;
+        this.name = p.name;
         this.position[0] = p.transform.position.x;
         this.position[1] = p.transform.position.y;
     }

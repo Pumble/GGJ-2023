@@ -486,7 +486,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8ff4c3a6ae9b354e9d40473c1d7c477, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
+  dialogManager: {fileID: 842405841}
+  Player: {fileID: 1675015868}
 --- !u!4 &1425388271
 Transform:
   m_ObjectHideFlags: 0
@@ -609,12 +610,21 @@ PrefabInstance:
       propertyPath: Emotion._sprite.Array.data[0]
       value: 
       objectReference: {fileID: 21300000, guid: 055c44a6ee790d743bcf692c99bfef6c, type: 3}
+    - target: {fileID: 8206358605457009699, guid: b1e781a67c6f97f4d9cfb50a61f30655, type: 3}
+      propertyPath: Emotion._emotion.Array.data[0]
+      value: Normal
+      objectReference: {fileID: 0}
     - target: {fileID: 8206358605457009709, guid: b1e781a67c6f97f4d9cfb50a61f30655, type: 3}
       propertyPath: m_Name
       value: NPC_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1e781a67c6f97f4d9cfb50a61f30655, type: 3}
+--- !u!1 &1675015868 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5993725034968175111, guid: f75e321743e85a24cb4a2bdd2ccd5d64, type: 3}
+  m_PrefabInstance: {fileID: 1817440468}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1817440468
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -733,12 +743,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7822736502703251950, guid: d32b03f970fed3c4a8cfb1d79ce36c0a, type: 3}
       propertyPath: m_Name
-      value: NPC
+      value: NPC_1
       objectReference: {fileID: 0}
     - target: {fileID: 7822736502703251951, guid: d32b03f970fed3c4a8cfb1d79ce36c0a, type: 3}
       propertyPath: dialogManager
       value: 
       objectReference: {fileID: 842405841}
+    - target: {fileID: 7822736502703251951, guid: d32b03f970fed3c4a8cfb1d79ce36c0a, type: 3}
+      propertyPath: defaultDialogue
+      value: /emote:Normal/Hola, soy Chad, Giga Chad/click//close/
+      objectReference: {fileID: 0}
     - target: {fileID: 7822736502703251951, guid: d32b03f970fed3c4a8cfb1d79ce36c0a, type: 3}
       propertyPath: defaultDialogue.name
       value: Chad

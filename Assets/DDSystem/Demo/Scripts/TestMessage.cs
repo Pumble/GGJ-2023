@@ -31,7 +31,7 @@ public class TestMessage : MonoBehaviour
 
         dialogTexts.Add(new DialogData("You don't even need to click on the window like this.../speed:0.1/ tada!/close/", "Li", () => Show_Example(5)));
 
-        dialogTexts.Add(new DialogData("/speed:0.1/AND YOU CAN'T SKIP THIS SENTENCE.", "Li", () => Show_Example(6), false));
+        dialogTexts.Add(new DialogData("/speed:0.5/AND YOU CAN'T SKIP THIS SENTENCE.", "Li", () => Show_Example(6), false));
 
         dialogTexts.Add(new DialogData("And here we go, the haha sound! /click//sound:haha/haha.", "Li", null, false));
 

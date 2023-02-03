@@ -1,5 +1,7 @@
+using Doublsb.Dialog;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /**
@@ -8,28 +10,38 @@ using UnityEngine;
  */
 public class GameManager : MonoBehaviour
 {
-    private static GameManager instance;
+    #region Datos
 
-    private GameManager()
-    {
-        // initialize your game manager here. Do not reference to GameObjects here (i.e. GameObject.Find etc.)
-        // because the game manager will be created before the objects
-    }
+    [SerializeField] private DialogManager dialogManager;
+    public GameObject Player;
+    
+    #endregion
 
-    public static GameManager Instance
+    #region Propiedades
+    
+    public static GameManager Instance { get; private set; }
+    public DialogManager DialogManager { get => dialogManager; set => dialogManager = value; }
+    
+    #endregion
+
+    void Awake()
     {
-        get
+        // If there is an instance, and it's not me, delete myself.
+        if (Instance != null && Instance != this)
         {
-            if (instance == null)
-            {
-                instance = new GameManager();
-            }
-
-            return instance;
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
         }
     }
 
-    public GameObject Player;
+    private void Start()
+    {
+        DialogData dialogData = new DialogData("/close/", "Player");
+        DialogManager.Show(dialogData);
+    }
 
     private void LateUpdate()
     {
