@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * Referencias:
+ * Como hacer un singleton: https://forum.unity.com/threads/help-how-do-you-set-up-a-gamemanager.131170/#post-885626
+ */
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
