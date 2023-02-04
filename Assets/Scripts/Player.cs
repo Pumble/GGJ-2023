@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /**
@@ -12,11 +13,13 @@ public class Player : MonoBehaviour
     #region Attributos
     [SerializeField] private bool interacting = false;
     [SerializeField] private List<Mission> acceptedMissions;
+    [SerializeField] private List<GameObject> inventory = new List<GameObject>();
     #endregion
 
     #region Getters and Setters
     public List<Mission> AcceptedMissions { get => acceptedMissions; set => acceptedMissions = value; }
     public bool Interacting { get => interacting; set => interacting = value; }
+    public List<GameObject> Inventory { get => inventory; set => inventory = value; }
     #endregion
 
     #region Metodos
@@ -56,6 +59,20 @@ public class Player : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void AddMission(Mission m)
+    {
+        if (m.IsParent == true)
+        {
+            this.AcceptedMissions.Add(m);
+        }
+        else
+        {
+            Mission parent = acceptedMissions.FirstOrDefault(p => p.Code == m.Code);
+            parent.SubMissions.Add(m);
+        }
+        m.StartMission();
     }
     #endregion
 

@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4980676576065399565
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2773196703995514005, guid: 327c389a7bef16c498ec8f69a23d1947, type: 3}
+      propertyPath: code
+      value: Mission_01_sub_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773196703995514005, guid: 327c389a7bef16c498ec8f69a23d1947, type: 3}
+      propertyPath: name
+      value: "\xBFY mis papeles?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773196703995514005, guid: 327c389a7bef16c498ec8f69a23d1947, type: 3}
+      propertyPath: parentCode
+      value: Mission_01_sub_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773196703995514005, guid: 327c389a7bef16c498ec8f69a23d1947, type: 3}
+      propertyPath: description
+      value: Naranjito dice que Verdecito tiene sus papeles y necesita cortarlos
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773196703995514005, guid: 327c389a7bef16c498ec8f69a23d1947, type: 3}
+      propertyPath: requestDialogue
+      value: Estoy seguro de que Verdecito tiene mis tijeras y las necesito para
+        pagar impuestos, sin ellos no te devuelvo la tijeras/click//close/
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773196703995514005, guid: 327c389a7bef16c498ec8f69a23d1947, type: 3}
+      propertyPath: flags.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773196703995514005, guid: 327c389a7bef16c498ec8f69a23d1947, type: 3}
+      propertyPath: completedMissionDialogue
+      value: Dame un momento para cortarlos y te las devuelvo/click//close/
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773196703995514006, guid: 327c389a7bef16c498ec8f69a23d1947, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773196703995514006, guid: 327c389a7bef16c498ec8f69a23d1947, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773196703995514006, guid: 327c389a7bef16c498ec8f69a23d1947, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773196703995514006, guid: 327c389a7bef16c498ec8f69a23d1947, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773196703995514006, guid: 327c389a7bef16c498ec8f69a23d1947, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773196703995514006, guid: 327c389a7bef16c498ec8f69a23d1947, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773196703995514006, guid: 327c389a7bef16c498ec8f69a23d1947, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773196703995514006, guid: 327c389a7bef16c498ec8f69a23d1947, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773196703995514006, guid: 327c389a7bef16c498ec8f69a23d1947, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773196703995514006, guid: 327c389a7bef16c498ec8f69a23d1947, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773196703995514006, guid: 327c389a7bef16c498ec8f69a23d1947, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773196703995514007, guid: 327c389a7bef16c498ec8f69a23d1947, type: 3}
+      propertyPath: m_Name
+      value: Mission_01_sub_02
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 327c389a7bef16c498ec8f69a23d1947, type: 3}

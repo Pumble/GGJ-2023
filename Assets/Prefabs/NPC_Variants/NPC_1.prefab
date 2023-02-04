@@ -21,7 +21,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2616576044275688519, guid: ee2ccf94ea4350646950c3dbf5326c04, type: 3}
       propertyPath: m_Name
-      value: NPC
+      value: NPC_1
       objectReference: {fileID: 0}
     - target: {fileID: 2616576044275688569, guid: ee2ccf94ea4350646950c3dbf5326c04, type: 3}
       propertyPath: m_RootOrder
@@ -29,7 +29,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2616576044275688569, guid: ee2ccf94ea4350646950c3dbf5326c04, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.65
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2616576044275688569, guid: ee2ccf94ea4350646950c3dbf5326c04, type: 3}
       propertyPath: m_LocalPosition.y
