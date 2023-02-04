@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (player.Interacting == false)
+        if (player.interacting == false)
         {
             rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
         }

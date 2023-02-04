@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6534577464824527376, guid: 53ebde6658e02034aa104942b428bb5f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6534577464824527376, guid: 53ebde6658e02034aa104942b428bb5f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -57,12 +57,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6534577464824527407, guid: 53ebde6658e02034aa104942b428bb5f, type: 3}
       propertyPath: code
-      value: NPC_3
+      value: Mission_04
       objectReference: {fileID: 0}
     - target: {fileID: 6534577464824527407, guid: 53ebde6658e02034aa104942b428bb5f, type: 3}
       propertyPath: defaultDialogue
-      value: /emote:Normal/Hola, soy Gallo el dealer del pueblo, buscame bajo el
-        puente si necesitas algo/click//close/
+      value: Hola, soy Verdecito/click//close/
       objectReference: {fileID: 0}
     - target: {fileID: 6534577466058417636, guid: 53ebde6658e02034aa104942b428bb5f, type: 3}
       propertyPath: m_Color.g

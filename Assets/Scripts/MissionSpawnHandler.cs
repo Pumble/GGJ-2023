@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CircleCollider2D))]
 public class MissionSpawnHandler : MonoBehaviour
 {
-    private bool missionAccepted = false;
+    public bool missionAccepted = false;
+
+    void Awake()
+    {
+        GetComponent<CircleCollider2D>().isTrigger = true;
+    }
 
     #region Triggers
 
@@ -14,9 +20,12 @@ public class MissionSpawnHandler : MonoBehaviour
         {
             if (missionAccepted == false)
             {
-                Mission m = this.transform.gameObject.GetComponent<Mission>();
+                GameObject parent = this.transform.parent.gameObject;
+                Mission m = parent.GetComponent<Mission>();
                 GameManager.Instance.Player.GetComponent<Player>().AddMission(m);
                 missionAccepted = true;
+                parent.SetActive(false);
+                Debug.Log("Mision: " + m.missionName + " aceptada");
             }
         }
     }

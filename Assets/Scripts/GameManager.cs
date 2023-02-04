@@ -14,14 +14,14 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private DialogManager dialogManager;
     public GameObject Player;
-    
+
     #endregion
 
     #region Propiedades
-    
+
     public static GameManager Instance { get; private set; }
     public DialogManager DialogManager { get => dialogManager; set => dialogManager = value; }
-    
+
     #endregion
 
     void Awake()
@@ -39,20 +39,30 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        DialogData dialogData = new DialogData("/close/", "Player");
-        DialogManager.Show(dialogData);
+        DialogManager.Hide();
+
+        StartCoroutine(InitialLoad());
     }
 
     private void LateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            SaveManager.SavePlayerData(Player.GetComponent<Player>());
+            Player p = Player.GetComponent<Player>();
+            SaveManager.SavePlayerData(new PlayerData(p));
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
             PlayerData pd = SaveManager.LoadPlayerData();
             Player.GetComponent<Player>().loadFromPlayerData(pd);
         }
+    }
+
+    IEnumerator InitialLoad()
+    {
+        yield return new WaitForSeconds(3);
+
+        PlayerData pd = SaveManager.LoadPlayerData();
+        Player.GetComponent<Player>().loadFromPlayerData(pd);
     }
 }

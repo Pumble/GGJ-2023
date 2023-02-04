@@ -21,7 +21,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7822736502703251920, guid: d32b03f970fed3c4a8cfb1d79ce36c0a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7822736502703251920, guid: d32b03f970fed3c4a8cfb1d79ce36c0a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -57,11 +57,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7822736502703251950, guid: d32b03f970fed3c4a8cfb1d79ce36c0a, type: 3}
       propertyPath: m_Name
-      value: NPC_2 Variant
+      value: NPC_2
       objectReference: {fileID: 0}
     - target: {fileID: 7822736502703251951, guid: d32b03f970fed3c4a8cfb1d79ce36c0a, type: 3}
       propertyPath: code
-      value: NPC_2
+      value: Mission_03
       objectReference: {fileID: 0}
     - target: {fileID: 7822736502703251951, guid: d32b03f970fed3c4a8cfb1d79ce36c0a, type: 3}
       propertyPath: dialogManager
@@ -69,7 +69,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7822736502703251951, guid: d32b03f970fed3c4a8cfb1d79ce36c0a, type: 3}
       propertyPath: defaultDialogue
-      value: /emote:Normal/Hola, soy Juan el Striper, dime si necesitas algo/click//close/
+      value: Hola, soy Naranjita/click//close/
       objectReference: {fileID: 0}
     - target: {fileID: 7822736502703251951, guid: d32b03f970fed3c4a8cfb1d79ce36c0a, type: 3}
       propertyPath: defaultDialogue.name

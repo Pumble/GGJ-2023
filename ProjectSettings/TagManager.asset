@@ -6,6 +6,7 @@ TagManager:
   tags:
   - NPC
   - Mission
+  - Reward
   layers:
   - Default
   - TransparentFX
