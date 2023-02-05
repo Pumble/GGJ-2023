@@ -1,0 +1,88 @@
+{
+   "interactions":[
+      {
+         "code":1,
+         "type":1,
+         "dialogs":[
+            "Hola.../click//close/",
+            "Hace poco perdí a mí abuelo... y él, era el único que conocía la clave del Wi-Fi/click//close/",
+            "¿Podrias conseguirla para mí?/click//close/",
+            "Tengo cosas importantes que hacer y necesito el Wi-Fi/click//close/"
+         ],
+         "character":"Joven Fornais",
+         "completed":false,
+         "requiredInteraction":-1,
+         "missionCode":"m01",
+         "itemToGive":null
+      },
+      {
+         "code":2,
+         "type":1,
+         "dialogs":[
+            "¡Hola joven!/click//close/",
+            "¿¡Cómo has hablado con mi nieto!?/click//close/",
+            "Mi nieto nunca aprende, le quise enseñar a tocar la guitarra y no quiso/click//close/",
+            "Pasa jugando en esos Mintiendos todo el día/click//close/",
+            "Así que en mi lecho de muerte le cambie la clave del Wi-Fi, a ver si aprende/click//close/",
+            "Lo malo es que aquí no encuentro instrumentos, estoy seguro que yo traía mí guitarra, pero no sé donde la deje/click//close/"
+         ],
+         "character":"Abuelo",
+         "completed":false,
+         "requiredInteraction":1,
+         "missionCode":"m02",
+         "itemToGive":null
+      },
+      {
+         "code":3,
+         "type":2,
+         "dialogs":[
+            "Bienvenida joven Medium a mi tienda de articulos perdidos/click//close/",
+            "¡Todos los objetos que Satan lame y nadie recoge terminan aquí!/click//close/",
+            "¿Que estas buscando?/click//close/",
+            "¿Una guitarra? Tengo muchas, pero sunpongo que la que buscas, es una muy vieja, pero suena extraordinario/click//close/",
+            "Escucha.../sound:anubisSolo//click/¡Increible!/click//close/",
+            "Cuando vivia en Egipto, teniamos una banda de Rock, se llamaba 'Dark World Gatekeepers'/click//close/",
+            "Dabamos concierto sobre la tumba de los reyes, que tiempos.../click//close/",
+            "Como artista retirado, entiendo como te encariñas con tus instrumentos/click//close/",
+            "Pero bueno, llévasela al viejo, él la aprovechará/click//close/"
+         ],
+         "character":"Anubis",
+         "completed":false,
+         "requiredInteraction":2,
+         "missionCode":null,
+         "itemToGive":"La guitarra del abuelo"
+      },
+      {
+         "code":4,
+         "type":3,
+         "dialogs":[
+            "¡Mi guitarra!/click//close/",
+            "¿Donde la encontraste?/click//close/",
+            "Como te extrañaba mi querida guitarra/click//close/",
+            ".../close/",
+            "Supongo que no todos los jovenes son iguales/click//close/",
+            "... y supongo que mi nieto puede cambiar/click//close/",
+            "La clave del Wi-Fi es: 'Y4 t1eNe$ 44_busc@ v1d@'/click//close/"
+         ],
+         "character":"Abuelo",
+         "completed":false,
+         "requiredInteraction":3,
+         "missionCode":"m02",
+         "itemToGive":"La clave del Wi-Fi"
+      },
+      {
+         "code":5,
+         "type":3,
+         "dialogs":[
+            "Gracias. Al fin podre conectarme otra vez y jugar al Fornais/click//close/",
+            ".../close/",
+            "y no tengo 44...son 46/click//close/"
+         ],
+         "character":"Joven Fornais",
+         "completed":false,
+         "requiredInteraction":4,
+         "missionCode":"m01",
+         "itemToGive":"Piedra trascendental"
+      }
+   ]
+}

@@ -1,0 +1,20 @@
+{
+   "missions":[
+      {
+         "missionName":"Wi-Fi trascendental",
+         "code":"m01",
+         "description":"El joven perdio hace poco a su abuelo y él, era el único que conocía la clave del Wi-Fi",
+         "completed":false,
+         "rewardName":"Piedra trascendental",
+         "itemRequired": "La clave del Wi-Fi"
+      },
+      {
+         "missionName":"La guitarra del abuelo",
+         "code":"m02",
+         "description":"El abuelo extravio su guitarra cuando bajaba al inframundo",
+         "completed":false,
+         "rewardName":"La clave del Wi-Fi",
+         "itemRequired": "La guitarra del abuelo"
+      }
+   ]
+}
