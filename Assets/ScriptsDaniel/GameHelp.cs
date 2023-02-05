@@ -8,6 +8,10 @@ public class GameHelp : MonoBehaviour
     {
         SceneManager.LoadScene("HowToPlay", LoadSceneMode.Single);
     }
+    public void OnBackSceneCredits()
+    {
+        SceneManager.LoadScene("Credits", LoadSceneMode.Single);
+    }
     public void OnBackSceneFirstWorld()
     {
         SceneManager.LoadScene("FirstWorld", LoadSceneMode.Single);

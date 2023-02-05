@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadCredits : MonoBehaviour
 {
-    private void OnTriggerStay2D(Collision2D other)
+    private void OnCollisionStay2D(Collision2D other)
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
