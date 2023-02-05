@@ -289,64 +289,39 @@ public class NPC : MonoBehaviour
                     interaction.completed = true;
                     Mission mission = player.acceptedMissions.FirstOrDefault(m => m.code == interaction.missionCode);
 
-                    // Quitar los objetos requeridos
-                    if (mission.itemRequired != null)
+                    if (mission != null)
                     {
-                        GameObject[] rewards = GameObject.FindGameObjectsWithTag("Reward");
-                        GameObject objectReward = rewards.FirstOrDefault(r => r.name == mission.itemRequired);
-                        player.inventory.Remove(objectReward);
+                        // Quitar los objetos requeridos
+                        if (mission.itemRequired != null)
+                        {
+                            GameObject[] rewards = GameObject.FindGameObjectsWithTag("Reward");
+                            GameObject objectReward = rewards.FirstOrDefault(r => r.name == mission.itemRequired);
+                            player.inventory.Remove(objectReward);
+                        }
+
+                        mission.completed = true;
+                        Debug.Log("Mision: " + mission.code + " completada!");
+
+                        player.acceptedMissions.Remove(mission);
+                        MissionManager.Instance.Missions.Remove(mission);
+                        player.AddReward(mission.rewardName, false);
+
+                        List<DialogData> dialogs = new List<DialogData>();
+                        dialogs.Add(new DialogData("/emote:Normal//sound:missionCompleted/¡Misión: " + mission.missionName + " completada!/click//close/", "Player"));
+                        dialogs.Add(new DialogData("/emote:Normal//sound:itemCollected/Item obtenido: " + mission.rewardName + "/click//close/", "Player"));
+                        GameManager.Instance.DialogManager.Show(dialogs);
+
+                        player.interacting = false;
                     }
+                    else
+                    {
+                        Debug.Log("No pudimos encontrar la mision a finalizar de " + interaction.code);
 
-                    mission.completed = true;
-                    Debug.Log("Mision: " + mission.code + " completada!");
-
-                    player.acceptedMissions.Remove(mission);
-                    MissionManager.Instance.Missions.Remove(mission);
-                    player.AddReward(mission.rewardName, false);
-
-                    List<DialogData> dialogs = new List<DialogData>();
-                    dialogs.Add(new DialogData("/emote:Normal//sound:missionCompleted/¡Misión: " + mission.missionName + " completada!/click//close/", "Player"));
-                    dialogs.Add(new DialogData("/emote:Normal//sound:itemCollected/Item obtenido: " + mission.rewardName + "/click//close/", "Player"));
-                    GameManager.Instance.DialogManager.Show(dialogs);
-
-                    player.interacting = false;
+                    }
                 }));
             }
         }
         GameManager.Instance.DialogManager.Show(dialogTexts);
     }
-
-    IEnumerator callBackFinishMission(Interaction interaction)
-    {
-        interaction.completed = true;
-        Mission mission = player.acceptedMissions.FirstOrDefault(m => m.code == interaction.missionCode);
-
-        // Quitar los objetos requeridos
-        if (mission.itemRequired != null)
-        {
-            GameObject[] rewards = GameObject.FindGameObjectsWithTag("Reward");
-            GameObject objectReward = rewards.FirstOrDefault(r => r.name == mission.itemRequired);
-            player.inventory.Remove(objectReward);
-        }
-
-        mission.completed = true;
-        Debug.Log("Mision: " + mission.code + " completada!");
-
-        DialogData dialogData = new DialogData("/emote:Normal//sound:missionCompleted/¡Misión: " + mission.missionName + " completada!/click//close/", "Player");
-        GameManager.Instance.DialogManager.Show(dialogData);
-
-        player.interacting = false;
-        new WaitForSeconds(1);
-        yield return callBackMissionCompleted(mission);
-    }
-
-    IEnumerator callBackMissionCompleted(Mission mission)
-    {
-        
-        new WaitForSeconds(1);
-        
-        yield return null;
-    }
-
     #endregion
 }
