@@ -2,6 +2,8 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.Generic;
+using Doublsb.Dialog;
+using System.Text;
 
 public static class SaveManager
 {
@@ -54,7 +56,8 @@ public static class SaveManager
         string dataPath = Application.persistentDataPath + "/missions.json";
         if (File.Exists(dataPath))
         {
-            MissionWrapper wrapper = JsonUtility.FromJson<MissionWrapper>(File.ReadAllText(dataPath));
+            byte[] bytes = Encoding.Default.GetBytes(File.ReadAllText(dataPath));
+            MissionWrapper wrapper = JsonUtility.FromJson<MissionWrapper>(Encoding.UTF8.GetString(bytes));
             Debug.Log("Misiones cargadas");
             return wrapper.missions;
         }
@@ -83,7 +86,8 @@ public static class SaveManager
         string dataPath = Application.persistentDataPath + "/player.json";
         if (File.Exists(dataPath))
         {
-            PlayerData wrapper = JsonUtility.FromJson<PlayerData>(File.ReadAllText(dataPath));
+            byte[] bytes = Encoding.Default.GetBytes(File.ReadAllText(dataPath));
+            PlayerData wrapper = JsonUtility.FromJson<PlayerData>(Encoding.UTF8.GetString(bytes));
             Debug.Log("Informacion del jugador cargada");
             return wrapper;
         }

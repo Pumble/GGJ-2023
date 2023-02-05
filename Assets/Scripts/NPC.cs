@@ -4,6 +4,8 @@ using UnityEngine;
 using Doublsb.Dialog;
 using System.Linq;
 using static UnityEditor.Progress;
+using System.Text;
+using System;
 
 /**
  * Referencias:
@@ -72,7 +74,8 @@ public class NPC : MonoBehaviour
     public void startDefaultDialogue()
     {
         // Aqui iniciamos el dialogo por default
-        DialogData dialogData = new DialogData(this.DefaultDialogue, this.Code);
+        byte[] bytes = Encoding.Default.GetBytes(this.DefaultDialogue);
+        DialogData dialogData = new DialogData(Encoding.UTF8.GetString(bytes), this.Code);
         GameManager.Instance.DialogManager.Show(dialogData);
 
         dialogData.Callback = () =>
@@ -88,9 +91,11 @@ public class NPC : MonoBehaviour
         string last = interaction.dialogs[interaction.dialogs.Length - 1];
         foreach (string d in interaction.dialogs)
         {
+            byte[] bytes = Encoding.Default.GetBytes(d);
+            
             if (d.Equals(last))
             {
-                dialogTexts.Add(new DialogData(d, interaction.character, () =>
+                dialogTexts.Add(new DialogData(Encoding.UTF8.GetString(bytes), interaction.character, () =>
                 {
                     GameManager.Instance.Player.GetComponent<Player>().interacting = false;
                     interaction.completed = true;
@@ -104,7 +109,7 @@ public class NPC : MonoBehaviour
             }
             else
             {
-                dialogTexts.Add(new DialogData(d, interaction.character));
+                dialogTexts.Add(new DialogData(Encoding.UTF8.GetString(bytes), interaction.character));
             }
         }
         GameManager.Instance.DialogManager.Show(dialogTexts);
