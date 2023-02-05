@@ -41,6 +41,9 @@ public class Player : MonoBehaviour
             if (interacting == false)
             {
                 interacting = true;
+
+
+                
                 /**
                  * Aqui lo que hacemos es detectar el NPC que tenemos de frente
                  * el codigo nos sirve para ver quien es y con ello filtramos las misiones

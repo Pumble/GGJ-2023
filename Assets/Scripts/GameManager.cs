@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        DialogManager.Hide();
+        dialogManager.Hide();
     }
 
     private void LateUpdate()

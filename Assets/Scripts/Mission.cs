@@ -1,6 +1,7 @@
 using Doublsb.Dialog;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Text;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -67,7 +68,8 @@ public class Mission
 
     public void StartMission()
     {
-        DialogData dialogData = new DialogData("/sound:missionAdded/Nueva mision: " + this.requestDialogue, "Player");
+        byte[] bytes = Encoding.Default.GetBytes("/sound:missionAdded/Nueva mision: " + this.requestDialogue);
+        DialogData dialogData = new DialogData(Encoding.UTF8.GetString(bytes), "Player");
         GameManager.Instance.DialogManager.Show(dialogData);
     }
 
