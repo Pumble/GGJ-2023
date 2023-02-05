@@ -26,29 +26,29 @@ public class Mission
     // Dialogos
     public string requestDialogue;
     public string completedMissionDialogue;
-    private List<Interaction> interactions = new List<Interaction>();
-    public Interaction[] interactionsArray;
+    //private List<Interaction> interactions = new List<Interaction>();
+    //public Interaction[] interactionsArray;
 
     // Items por checkear
-    public List<string> itemsToCheck = new List<string>();
+    //public List<string> itemsToCheck = new List<string>();
 
     #endregion
 
     #region Propiedades
 
-    public List<Interaction> Interactions
-    {
-        get
-        {
-            interactions = new List<Interaction>(interactionsArray);
-            return interactions;
-        }
-        set
-        {
-            interactions = value;
-            interactionsArray = interactions.ToArray();
-        }
-    }
+    //public List<Interaction> Interactions
+    //{
+    //    get
+    //    {
+    //        interactions = new List<Interaction>(interactionsArray);
+    //        return interactions;
+    //    }
+    //    set
+    //    {
+    //        interactions = value;
+    //        interactionsArray = interactions.ToArray();
+    //    }
+    //}
 
     #endregion
 
@@ -68,14 +68,14 @@ public class Mission
 
     public void StartMission()
     {
-        byte[] bytes = Encoding.Default.GetBytes("/sound:missionAdded/Nueva mision: " + this.requestDialogue);
+        byte[] bytes = Encoding.Default.GetBytes("/emote:Normal//sound:missionAdded/Nueva mision: " + this.requestDialogue);
         DialogData dialogData = new DialogData(Encoding.UTF8.GetString(bytes), "Player");
         GameManager.Instance.DialogManager.Show(dialogData);
     }
 
     public void FinishMission()
     {
-        DialogData dialogData = new DialogData(this.completedMissionDialogue, "Player", () =>
+        DialogData dialogData = new DialogData("/emote:Normal//sound:missionCompleted/" + this.completedMissionDialogue, "Player", () =>
         {
             Player p = GameManager.Instance.Player.GetComponent<Player>();
             if (this.rewardName != null && this.rewardName != "")
@@ -85,10 +85,10 @@ public class Mission
         GameManager.Instance.DialogManager.Show(dialogData);
     }
 
-    public List<Interaction> GetInteractions(string code)
-    {
-        return interactions.FindAll(i => i.missionCode == code);
-    }
+    //public List<Interaction> GetInteractions(string code)
+    //{
+    //    return interactions.FindAll(i => i.missionCode == code);
+    //}
 }
 
 /**
@@ -123,12 +123,9 @@ public class MissionData
     public string description;
     public string parentCode; // Si es nulo: es padre o raiz, si no: es submision
     public bool completed;
-    public MissionData[] subMissionsArray;
     public string rewardName;
     public string requestDialogue;
     public string completedMissionDialogue;
-    public Interaction[] interactionsArray;
-    public List<string> itemsToCheck = new List<string>();
 
     public MissionData(Mission mission)
     {
@@ -141,7 +138,7 @@ public class MissionData
         this.rewardName = mission.rewardName;
         this.requestDialogue = mission.requestDialogue;
         this.completedMissionDialogue = mission.completedMissionDialogue;
-        this.itemsToCheck = mission.itemsToCheck;
+        //this.itemsToCheck = mission.itemsToCheck;
         //this.interactionsArray = mission.Interactions.ToArray();
 
         //this.subMissionsArray = new MissionData[mission.SubMissions.Count];

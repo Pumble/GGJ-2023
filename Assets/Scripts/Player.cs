@@ -42,8 +42,6 @@ public class Player : MonoBehaviour
             {
                 interacting = true;
 
-
-                
                 /**
                  * Aqui lo que hacemos es detectar el NPC que tenemos de frente
                  * el codigo nos sirve para ver quien es y con ello filtramos las misiones
@@ -53,7 +51,10 @@ public class Player : MonoBehaviour
                  * 
                  * Sino, pues debemos iniciar el dialogo por default
                  */
-                Mission mission = this.acceptedMissions.FirstOrDefault(m => m.code == missionCode);
+                Mission mission = this.acceptedMissions.FirstOrDefault(m =>
+                {
+                    return m.code == missionCode && m.completed == false;
+                });
                 NPC npc = other.GetComponent<NPC>();
                 if (mission != null)
                 {
@@ -129,8 +130,33 @@ public class Player : MonoBehaviour
         GameObject objectReward = rewards.FirstOrDefault(r => r.name == reward);
         this.inventory.Add(objectReward);
 
-        DialogData dialogData = new DialogData("/sound:itemCollected/Item obtenido: " + this.name + "/click//close/", "Player");
+        DialogData dialogData = new DialogData("/emote:Normal//sound:itemCollected/Item obtenido: " + this.name + "/click//close/", "Player");
         GameManager.Instance.DialogManager.Show(dialogData);
+    }
+
+    public void Interact(Interaction interaction, NPC character)
+    {
+        if (interaction.completed)
+        {
+            character.startDefaultDialogue();
+        }
+        else
+        {
+            switch (interaction.type)
+            {
+                case 0: // Solo hablar
+                    break;
+                case 1: // Nueva mision
+                    break;
+                case 2: // Item por recibir
+                    break;
+                case 3: // Finalizar mision
+                    break;
+                default:
+                    character.startDefaultDialogue();
+                    break;
+            }
+        }
     }
 
     #endregion
