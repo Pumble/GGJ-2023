@@ -1,15 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Doublsb.Dialog;
+using System.Collections.Generic;
 using System.Linq;
-using static UnityEditor.Progress;
 using System.Text;
-using System;
-using UnityEngine.XR;
-using UnityEngine.TextCore.Text;
-using Unity.VisualScripting;
-using System.Reflection;
+using UnityEngine;
 
 public class NPCData
 {

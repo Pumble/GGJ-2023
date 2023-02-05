@@ -1,9 +1,7 @@
-using UnityEngine;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.Generic;
-using Doublsb.Dialog;
+using System.IO;
 using System.Text;
+using UnityEngine;
 
 public static class SaveManager
 {

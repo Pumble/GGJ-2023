@@ -1,7 +1,6 @@
-﻿using System.Collections;
+﻿using Doublsb.Dialog;
 using System.Collections.Generic;
 using UnityEngine;
-using Doublsb.Dialog;
 
 public class TestMessage_Selection : MonoBehaviour
 {
@@ -25,7 +24,7 @@ public class TestMessage_Selection : MonoBehaviour
 
     private void Check_Correct()
     {
-        if(DialogManager.Result == "Correct")
+        if (DialogManager.Result == "Correct")
         {
             var dialogTexts = new List<DialogData>();
 

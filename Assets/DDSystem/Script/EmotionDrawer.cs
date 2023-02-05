@@ -103,8 +103,8 @@ namespace Doublsb.Dialog
             for (int i = 0; i < _sprite.arraySize; i++)
             {
                 startPos = new Rect(startPos.position + new Vector2(0, 18), startPos.size);
-                if(_emotion.GetArrayElementAtIndex(i).stringValue != "Normal" && GUI.Button(startPos, "-"))
-                { 
+                if (_emotion.GetArrayElementAtIndex(i).stringValue != "Normal" && GUI.Button(startPos, "-"))
+                {
                     int j = i;
                     _delete_Raw(j);
                 }

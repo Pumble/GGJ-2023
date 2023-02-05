@@ -23,11 +23,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 namespace Doublsb.Dialog
 {
@@ -81,7 +81,7 @@ namespace Doublsb.Dialog
             _current_Data = Data;
             _find_character(Data.Character);
 
-            if(_current_Character != null)
+            if (_current_Character != null)
                 _emote("Normal");
 
             _textingRoutine = StartCoroutine(Activate());
@@ -100,16 +100,16 @@ namespace Doublsb.Dialog
                     StartCoroutine(_skip()); break;
 
                 case State.Wait:
-                    if(_current_Data.SelectList.Count <= 0) Hide(); break;
+                    if (_current_Data.SelectList.Count <= 0) Hide(); break;
             }
         }
 
         public void Hide()
         {
-            if(_textingRoutine != null)
+            if (_textingRoutine != null)
                 StopCoroutine(_textingRoutine);
 
-            if(_printingRoutine != null)
+            if (_printingRoutine != null)
                 StopCoroutine(_printingRoutine);
 
             Printer.SetActive(false);
@@ -213,7 +213,7 @@ namespace Doublsb.Dialog
 
             Characters.SetActive(_current_Character != null);
             foreach (Transform item in Characters.transform) item.gameObject.SetActive(false);
-            if(_current_Character != null) _current_Character.gameObject.SetActive(true);
+            if (_current_Character != null) _current_Character.gameObject.SetActive(true);
         }
 
         private void _init_selector()
@@ -229,7 +229,7 @@ namespace Doublsb.Dialog
                     _add_selectorItem(i);
                 }
             }
-                
+
             else Selector.SetActive(false);
         }
 

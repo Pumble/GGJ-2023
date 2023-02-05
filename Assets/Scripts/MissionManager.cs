@@ -1,11 +1,7 @@
-using Doublsb.Dialog;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 using TMPro;
-using Unity.VisualScripting;
+using UnityEngine;
 
 public class MissionManager : MonoBehaviour
 {

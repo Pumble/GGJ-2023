@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -21,7 +19,8 @@ public class PlayerController : MonoBehaviour
         address = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
     }
 
-    private void FixedUpdate() {
-        rbd2.MovePosition(rbd2.position + address * speedMovement *Time.fixedDeltaTime);
+    private void FixedUpdate()
+    {
+        rbd2.MovePosition(rbd2.position + address * speedMovement * Time.fixedDeltaTime);
     }
 }
