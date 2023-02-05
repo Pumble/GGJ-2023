@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private DialogManager dialogManager;
     public GameObject Player;
     public GameObject missionModal;
+    public GameObject itemsModal;
 
     public List<Interaction> interactions;
 
@@ -66,6 +67,10 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M))
         {
             missionModal.SetActive(!missionModal.activeSelf);
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            itemsModal.SetActive(!itemsModal.activeSelf);
         }
     }
 

@@ -18,6 +18,11 @@ public class MissionManager : MonoBehaviour
     private int previousSize = 0;
     public GameObject missionModal;
 
+    public GameObject itemsModal;
+    public GameObject textMeshItems;
+    private TextMeshProUGUI textMeshProItems;
+    private int previousSizeItems = 0;
+
     #endregion
 
     #region Propiedades
@@ -45,32 +50,36 @@ public class MissionManager : MonoBehaviour
         missions = SaveManager.LoadMissionsData();
         player = GameManager.Instance.Player.GetComponent<Player>();
         textMeshPro = textMesh.GetComponent<TextMeshProUGUI>();
-
-        // TODO: REMOVER
-        // PRUEBAS
-        // Asignar esta mision al jugador
-        //if (missions.Count > 0)
-        //{
-        //    StartCoroutine(addTestingMission());
-        //}
+        textMeshProItems = textMeshItems.GetComponent<TextMeshProUGUI>();
     }
 
     private void LateUpdate()
-    {            // Aqui actualizamos el panel de misiones
-        if (previousSize != player.acceptedMissions.Count)
+    {
+        // Aqui actualizamos el panel de misiones
+
+        textMeshPro.text = "";
+        foreach (Mission m in player.acceptedMissions)
         {
-            textMeshPro.text = "";
-            foreach (Mission m in player.acceptedMissions)
-            {
-                textMeshPro.text += "<line-indent=0%><b>- <uppercase>" + m.missionName + "</uppercase></b></line-indent>\n<line-indent=15%>" + m.description + "</line-indent>\n";
-            }
+            textMeshPro.text += "<line-indent=0%><b>- <uppercase>" + m.missionName + "</uppercase></b></line-indent>\n<line-indent=15%>" + m.description + "</line-indent>\n";
         }
-        previousSize = player.acceptedMissions.Count;
+
+        // Aqui actualizamos el panel de misiones
+
+        textMeshProItems.text = "";
+        foreach (GameObject item in player.inventory)
+        {
+            textMeshProItems.text += "<line-indent=0%><b>- " + item.name + "</line-indent>\n";
+        }
     }
 
     public void closeMissionModal()
     {
         missionModal.SetActive(false);
+    }
+
+    public void closeItemsModal()
+    {
+        itemsModal.SetActive(false);
     }
 
     IEnumerator addTestingMission()
