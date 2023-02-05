@@ -99,4 +99,34 @@ public static class SaveManager
     }
 
     #endregion
+
+    #region Interacciones
+
+    public static void SaveInteractionsData(InteractionWrapper wrapper)
+    {
+        string json = JsonUtility.ToJson(wrapper, true);
+        string path = Application.persistentDataPath + "/interactions.json";
+        File.WriteAllText(path, json);
+        Debug.Log("Interacciones guardadas");
+    }
+
+    public static List<Interaction> LoadInteractionsData()
+    {
+        string dataPath = Application.persistentDataPath + "/interactions.json";
+        if (File.Exists(dataPath))
+        {
+            byte[] bytes = Encoding.Default.GetBytes(File.ReadAllText(dataPath));
+            MissionWrapper wrapper = JsonUtility.FromJson<MissionWrapper>(Encoding.UTF8.GetString(bytes));
+            Debug.Log("Interacciones cargadas");
+            return wrapper.interactions;
+        }
+        else
+        {
+            Debug.Log("No se encontro ningun archivo de interacciones");
+            return null;
+        }
+
+    }
+
+    #endregion
 }

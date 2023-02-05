@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
     public GameObject missionModal;
 
+    public List<Interaction> interactions;
+
     #endregion
 
     #region Propiedades

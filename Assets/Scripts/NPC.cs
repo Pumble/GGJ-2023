@@ -99,7 +99,40 @@ public class NPC : MonoBehaviour
             // Revisar si este NPC tiene alguna interaccion con el jugador
             if (interactions.Count > 0)
             {
-                List<Interaction> aviableInteractions = this.interactions.FindAll(i => i.completed == false);
+                /** 
+                 * Debemos filtrar las interacciones que:
+                 * 1- Que no esten completas(osea que no se han iniciado
+                 * 2- Cuyos requisitos esten completados
+                 */
+                List<Interaction> aviableInteractions = new List<Interaction>();
+                foreach (Interaction i in this.interactions)
+                {
+                    if (i.completed == false)
+                    {
+                        List<Interaction> completedInteractions = new List<Interaction>();
+                        foreach (int j in i.requiredInteractions)
+                        {
+                            completedInteractions.Add(
+                                GameManager.Instance.interactions.FirstOrDefault(k => k.code == j && k.completed == true)
+                            );
+                        }
+
+                        // Si el numero es igual, quiere decir que esta interaccion cumple los requisitos y esta disponible
+                        if (i.requiredInteractions.Count == completedInteractions.Count)
+                        {
+                            aviableInteractions.Add(i);
+                        }
+                    }
+                }
+
+                if (aviableInteractions.Count > 0)
+                {
+
+                }
+                else {
+                    // Ya agoto las interacciones con este personaje
+                    this.startDefaultDialogue();
+                }
             }
             else
             {
@@ -109,34 +142,34 @@ public class NPC : MonoBehaviour
 
 
 
-            // Nos esta solicitando una mision?
-            if (this.missionRequest != null && this.missionRequest != "")
-            {
-                // Aseguramos que la mision no este ya aceptada
-                Mission mission = player.acceptedMissions.FirstOrDefault(m => m.code == this.missionRequest);
-                if (mission == null) // No tiene la mision
-                {
-                    Mission toAccept = MissionManager.Instance.Missions.FirstOrDefault(m => m.code == this.missionRequest);
-                    if (toAccept != null)
-                    {
-                        player.AddMission(toAccept);
-                    }
-                    else
-                    {
-                        // A falta de algo, mejor interactuamos
-                        player.Interact(this.Code, this.transform.gameObject);
-                    }
-                }
-                else
-                {
-                    // Ya tiene la mision, hay que atender con una interaccion
-                    player.Interact(this.Code, this.transform.gameObject);
-                }
-            }
-            else
-            {
-                player.Interact(this.Code, this.transform.gameObject);
-            }
+            //// Nos esta solicitando una mision?
+            //if (this.missionRequest != null && this.missionRequest != "")
+            //{
+            //    // Aseguramos que la mision no este ya aceptada
+            //    Mission mission = player.acceptedMissions.FirstOrDefault(m => m.code == this.missionRequest);
+            //    if (mission == null) // No tiene la mision
+            //    {
+            //        Mission toAccept = MissionManager.Instance.Missions.FirstOrDefault(m => m.code == this.missionRequest);
+            //        if (toAccept != null)
+            //        {
+            //            player.AddMission(toAccept);
+            //        }
+            //        else
+            //        {
+            //            // A falta de algo, mejor interactuamos
+            //            player.Interact(this.Code, this.transform.gameObject);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        // Ya tiene la mision, hay que atender con una interaccion
+            //        player.Interact(this.Code, this.transform.gameObject);
+            //    }
+            //}
+            //else
+            //{
+            //    player.Interact(this.Code, this.transform.gameObject);
+            //}
         }
     }
 

@@ -8,6 +8,7 @@ public class Interaction
     #region Datos
 
     public int code;
+    public string npc; // Nombre del NPC
     public int type; // 0: Default(Hablar), 1: Mission(Solicitar una mision), 2: Item(Dar un item), 3: Finalizar mision
     public List<string> dialogs;
     public string character;
@@ -20,9 +21,10 @@ public class Interaction
 
     #region Constructores
 
-    public Interaction(int code, int type, List<string> dialogs, string character, bool completed, List<int> requiredInteractions, string missionCode, string itemToGive)
+    public Interaction(int code, string npc, int type, List<string> dialogs, string character, bool completed, List<int> requiredInteractions, string missionCode, string itemToGive)
     {
         this.code = code;
+        this.npc = npc;
         this.type = type;
         this.dialogs = dialogs;
         this.character = character;
@@ -46,4 +48,14 @@ public class Interaction
     }
 
     #endregion
+}
+
+public class InteractionWrapper
+{
+    public List<Interaction> interactions;
+
+    public InteractionWrapper(List<Interaction> interactions)
+    {
+        this.interactions = interactions;
+    }
 }
