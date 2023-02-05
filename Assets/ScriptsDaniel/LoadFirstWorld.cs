@@ -7,8 +7,13 @@ public class LoadFirstWorld : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            SceneManager.LoadScene("FirstWorld", LoadSceneMode.Single);
+            SaveManager.SaveInGameData(
+                new PlayerData(GameManager.Instance.Player.GetComponent<Player>()),
+                new MissionWrapper(MissionManager.Instance.Missions),
+                new InteractionWrapper(GameManager.Instance.interactions)
+            );
 
+            SceneManager.LoadScene("FirstWorld", LoadSceneMode.Single);
         }
     }
 
