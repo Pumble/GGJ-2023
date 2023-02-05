@@ -15,6 +15,7 @@ public class NPC : MonoBehaviour
 
     [SerializeField] private string code;
     [SerializeField] private string defaultDialogue;
+    [SerializeField] private string missionRequest;
 
     #endregion
 
@@ -22,6 +23,7 @@ public class NPC : MonoBehaviour
 
     public string Code { get => code; set => code = value; }
     public string DefaultDialogue { get => defaultDialogue; set => defaultDialogue = value; }
+    public string MissionRequest { get => missionRequest; set => missionRequest = value; }
 
     #endregion
 
@@ -31,7 +33,29 @@ public class NPC : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && Input.GetKeyDown(KeyCode.F))
         {
-            GameManager.Instance.Player.GetComponent<Player>().Interact(this.Code, this.transform.gameObject);
+            Player player = GameManager.Instance.Player.GetComponent<Player>();
+            if (this.missionRequest == null || this.missionRequest == "")
+            {
+                // Iniciamos la interaccion
+                player.Interact(this.Code, this.transform.gameObject);
+            }
+            else
+            {
+                // Ya acepto la mision?
+                Mission mission = player.acceptedMissions.FirstOrDefault(m => m.code == this.missionRequest);
+                if (mission == null) // No tiene la mision
+                {
+                    Mission toAccept = MissionManager.Instance.Missions.FirstOrDefault(m => m.code == this.missionRequest);
+                    if (toAccept != null)
+                    {
+                        player.AddMission(toAccept);
+                    }
+                }
+                else {
+                    // Ya tiene la mision, hay que atender con una interaccion
+                    player.Interact(this.Code, this.transform.gameObject);
+                }
+            }
         }
     }
 

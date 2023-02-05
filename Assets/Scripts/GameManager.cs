@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private DialogManager dialogManager;
     public GameObject Player;
+    public GameObject missionModal;
 
     #endregion
 
@@ -40,8 +41,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         DialogManager.Hide();
-
-        StartCoroutine(InitialLoad());
     }
 
     private void LateUpdate()
@@ -55,6 +54,10 @@ public class GameManager : MonoBehaviour
         {
             PlayerData pd = SaveManager.LoadPlayerData();
             Player.GetComponent<Player>().loadFromPlayerData(pd);
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            missionModal.SetActive(!missionModal.activeSelf);
         }
     }
 

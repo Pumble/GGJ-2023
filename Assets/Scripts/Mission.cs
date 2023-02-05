@@ -67,7 +67,7 @@ public class Mission
 
     public void StartMission()
     {
-        DialogData dialogData = new DialogData("/sound:missionAdded/Nueva misión: " + this.requestDialogue, "Player");
+        DialogData dialogData = new DialogData("/sound:missionAdded/Nueva mision: " + this.requestDialogue, "Player");
         GameManager.Instance.DialogManager.Show(dialogData);
     }
 
