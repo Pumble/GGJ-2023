@@ -127,24 +127,43 @@ public class Player : MonoBehaviour
 
     public void FinishMission(Mission m)
     {
-        m.completed = true;
-        this.acceptedMissions.Remove(m);
-        MissionManager.Instance.Missions.Remove(m);
+        // Quitar los objetos requeridos
+        if (m.itemRequired != null)
+        {
+            GameObject[] rewards = GameObject.FindGameObjectsWithTag("Reward");
+            GameObject objectReward = rewards.FirstOrDefault(r => r.name == m.itemRequired);
+            this.inventory.Remove(objectReward);
+        }
 
+        m.completed = true;
         Debug.Log("Mision: " + m.code + " completada!");
 
-        this.AddReward(m.rewardName);
+        DialogData dialogData = new DialogData("/emote:Normal//sound:missionCompleted/¡Misión: " + m.missionName + " completada!/click//close/", "Player");
+        GameManager.Instance.DialogManager.Show(dialogData);
+        RewardAndAddRemoveMission(m);
     }
 
-    public void AddReward(string reward)
+    public void AddReward(string reward, bool notify = true)
     {
         GameObject[] rewards = GameObject.FindGameObjectsWithTag("Reward");
         GameObject objectReward = rewards.FirstOrDefault(r => r.name == reward);
         this.inventory.Add(objectReward);
 
-        DialogData dialogData = new DialogData("/emote:Normal//sound:itemCollected/Item obtenido: " + objectReward.name + "/click//close/", "Player");
-        GameManager.Instance.DialogManager.Show(dialogData);
+        if (notify)
+        {
+            DialogData dialogData = new DialogData("/emote:Normal//sound:itemCollected/Item obtenido: " + objectReward.name + "/click//close/", "Player");
+            GameManager.Instance.DialogManager.Show(dialogData);
+        }
     }
+
+    IEnumerator RewardAndAddRemoveMission(Mission m)
+    {
+        yield return new WaitForSeconds(2);
+        this.acceptedMissions.Remove(m);
+        MissionManager.Instance.Missions.Remove(m);
+        this.AddReward(m.rewardName);
+    }
+
 
     public void Interact(Interaction interaction, NPC npc)
     {

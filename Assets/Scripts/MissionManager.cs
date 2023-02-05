@@ -62,7 +62,7 @@ public class MissionManager : MonoBehaviour
             textMeshPro.text = "";
             foreach (Mission m in player.acceptedMissions)
             {
-                textMeshPro.text += "<b>- <uppercase>" + m.missionName + "</uppercase></b>\n<line-indent=15%>" + m.description + "\n";
+                textMeshPro.text += "<line-indent=0%><b>- <uppercase>" + m.missionName + "</uppercase></b></line-indent>\n<line-indent=15%>" + m.description + "</line-indent>\n";
             }
         }
         previousSize = player.acceptedMissions.Count;

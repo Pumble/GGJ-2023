@@ -8,6 +8,8 @@ using System.Text;
 using System;
 using UnityEngine.XR;
 using UnityEngine.TextCore.Text;
+using Unity.VisualScripting;
+using System.Reflection;
 
 public class NPCData
 {
@@ -269,8 +271,8 @@ public class NPC : MonoBehaviour
     {
         List<DialogData> dialogTexts = new List<DialogData>();
 
-        Mission mission = player.acceptedMissions.FirstOrDefault(m => m.code == interaction.missionCode);
-        interaction.dialogs.Add("Mision '" + mission.missionName + "' completada/click//close/");
+
+        // interaction.dialogs.Add("Misión '" + mission.missionName + "' completada/click//close/");
         string last = interaction.dialogs.Last();
 
         foreach (string d in interaction.dialogs)
@@ -283,13 +285,67 @@ public class NPC : MonoBehaviour
             {
                 dialogTexts.Add(new DialogData("/emote:Normal/" + d, interaction.character, () =>
                 {
+                    // EJECUTAR ESTA FUNCION COMPLETA EN UN CO-ROUTINE 1 SEGUNDO DESPUES
                     interaction.completed = true;
-                    player.FinishMission(mission);
+                    Mission mission = player.acceptedMissions.FirstOrDefault(m => m.code == interaction.missionCode);
+
+                    // Quitar los objetos requeridos
+                    if (mission.itemRequired != null)
+                    {
+                        GameObject[] rewards = GameObject.FindGameObjectsWithTag("Reward");
+                        GameObject objectReward = rewards.FirstOrDefault(r => r.name == mission.itemRequired);
+                        player.inventory.Remove(objectReward);
+                    }
+
+                    mission.completed = true;
+                    Debug.Log("Mision: " + mission.code + " completada!");
+
+                    player.acceptedMissions.Remove(mission);
+                    MissionManager.Instance.Missions.Remove(mission);
+                    player.AddReward(mission.rewardName, false);
+
+                    List<DialogData> dialogs = new List<DialogData>();
+                    dialogs.Add(new DialogData("/emote:Normal//sound:missionCompleted/¡Misión: " + mission.missionName + " completada!/click//close/", "Player"));
+                    dialogs.Add(new DialogData("/emote:Normal//sound:itemCollected/Item obtenido: " + mission.rewardName + "/click//close/", "Player"));
+                    GameManager.Instance.DialogManager.Show(dialogs);
+
                     player.interacting = false;
                 }));
             }
         }
         GameManager.Instance.DialogManager.Show(dialogTexts);
+    }
+
+    IEnumerator callBackFinishMission(Interaction interaction)
+    {
+        interaction.completed = true;
+        Mission mission = player.acceptedMissions.FirstOrDefault(m => m.code == interaction.missionCode);
+
+        // Quitar los objetos requeridos
+        if (mission.itemRequired != null)
+        {
+            GameObject[] rewards = GameObject.FindGameObjectsWithTag("Reward");
+            GameObject objectReward = rewards.FirstOrDefault(r => r.name == mission.itemRequired);
+            player.inventory.Remove(objectReward);
+        }
+
+        mission.completed = true;
+        Debug.Log("Mision: " + mission.code + " completada!");
+
+        DialogData dialogData = new DialogData("/emote:Normal//sound:missionCompleted/¡Misión: " + mission.missionName + " completada!/click//close/", "Player");
+        GameManager.Instance.DialogManager.Show(dialogData);
+
+        player.interacting = false;
+        new WaitForSeconds(1);
+        yield return callBackMissionCompleted(mission);
+    }
+
+    IEnumerator callBackMissionCompleted(Mission mission)
+    {
+        
+        new WaitForSeconds(1);
+        
+        yield return null;
     }
 
     #endregion
