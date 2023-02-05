@@ -96,80 +96,64 @@ public class NPC : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && Input.GetKeyDown(KeyCode.F))
         {
-            // Revisar si este NPC tiene alguna interaccion con el jugador
-            if (interactions.Count > 0)
+            if (player.interacting == false)
             {
-                /** 
-                 * Debemos filtrar las interacciones que:
-                 * 1- Que no esten completas(osea que no se han iniciado
-                 * 2- Cuyos requisitos esten completados
-                 */
-                List<Interaction> aviableInteractions = new List<Interaction>();
-                foreach (Interaction i in this.interactions)
+                // Revisar si este NPC tiene alguna interaccion con el jugador
+                if (interactions.Count > 0)
                 {
-                    if (i.completed == false)
+                    /** 
+                     * Debemos filtrar las interacciones que:
+                     * 1- Que no esten completas(osea que no se han iniciado
+                     * 2- Cuyos requisitos esten completados
+                     */
+                    List<Interaction> aviableInteractions = new List<Interaction>();
+                    foreach (Interaction i in this.interactions)
                     {
-                        List<Interaction> completedInteractions = new List<Interaction>();
-                        foreach (int j in i.requiredInteractions)
+                        if (i.completed == false)
                         {
-                            completedInteractions.Add(
-                                GameManager.Instance.interactions.FirstOrDefault(k => k.code == j && k.completed == true)
-                            );
-                        }
-
-                        // Si el numero es igual, quiere decir que esta interaccion cumple los requisitos y esta disponible
-                        if (i.requiredInteractions.Count == completedInteractions.Count)
-                        {
-                            aviableInteractions.Add(i);
+                            if (i.requiredInteraction != -1)
+                            {
+                                Interaction requiredInteraction = GameManager.Instance.interactions.FirstOrDefault(j => j.code == i.requiredInteraction);
+                                if (requiredInteraction != null)
+                                {
+                                    if (requiredInteraction.completed)
+                                    {
+                                        aviableInteractions.Add(i);
+                                    }
+                                    else
+                                    {
+                                        Debug.Log("La interaccion(" + i.code + ") requiere a: " + i.requiredInteraction + " aun no esta completada");
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.Log("La interaccion(" + i.code + ") requiere a: " + i.requiredInteraction + " y no se encontro en la lista");
+                                }
+                            }
+                            else
+                            {
+                                aviableInteractions.Add(i);
+                            }
                         }
                     }
-                }
 
-                if (aviableInteractions.Count > 0)
+                    if (aviableInteractions.Count > 0)
+                    {
+                        // Resolvamos las interacciones de 1 en 1, asi que solo le vamos a pasar la primera
+                        // la clase Player se encargara
+                        player.Interact(aviableInteractions[0], this);
+                    }
+                    else
+                    {
+                        // Ya agoto las interacciones con este personaje
+                        this.startDefaultDialogue();
+                    }
+                }
+                else
                 {
-
-                }
-                else {
-                    // Ya agoto las interacciones con este personaje
                     this.startDefaultDialogue();
                 }
             }
-            else
-            {
-                this.startDefaultDialogue();
-            }
-
-
-
-
-            //// Nos esta solicitando una mision?
-            //if (this.missionRequest != null && this.missionRequest != "")
-            //{
-            //    // Aseguramos que la mision no este ya aceptada
-            //    Mission mission = player.acceptedMissions.FirstOrDefault(m => m.code == this.missionRequest);
-            //    if (mission == null) // No tiene la mision
-            //    {
-            //        Mission toAccept = MissionManager.Instance.Missions.FirstOrDefault(m => m.code == this.missionRequest);
-            //        if (toAccept != null)
-            //        {
-            //            player.AddMission(toAccept);
-            //        }
-            //        else
-            //        {
-            //            // A falta de algo, mejor interactuamos
-            //            player.Interact(this.Code, this.transform.gameObject);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        // Ya tiene la mision, hay que atender con una interaccion
-            //        player.Interact(this.Code, this.transform.gameObject);
-            //    }
-            //}
-            //else
-            //{
-            //    player.Interact(this.Code, this.transform.gameObject);
-            //}
         }
     }
 
@@ -198,11 +182,13 @@ public class NPC : MonoBehaviour
         };
     }
 
-    public void startDialogue(Interaction interaction)
+    #endregion
+
+    #region Verbos
+
+    public void Talk(Interaction interaction)
     {
-        // Aqui iniciamos el dialogo por default
         List<DialogData> dialogTexts = new List<DialogData>();
-        // Obtenemos todos los items menos el ultimo
         string last = interaction.dialogs.Last();
 
         foreach (string d in interaction.dialogs)
@@ -213,73 +199,97 @@ public class NPC : MonoBehaviour
             }
             else
             {
-                dialogTexts.Add(new DialogData("/emote:Normal/" + d, interaction.character, () => this.starInteraction(interaction)));
+                dialogTexts.Add(new DialogData("/emote:Normal/" + d, interaction.character, () =>
+                {
+                    interaction.completed = true;
+                    player.interacting = false;
+                }));
             }
         }
         GameManager.Instance.DialogManager.Show(dialogTexts);
     }
 
-    public void startDialogueToFinish(Interaction interaction, Mission mission)
+    public void RequestAMission(Interaction interaction)
     {
-        DialogData dialogData = new DialogData("/emote:Normal/" + mission.completedMissionDialogue, interaction.character, () =>
+        List<DialogData> dialogTexts = new List<DialogData>();
+        string last = interaction.dialogs.Last();
+
+        foreach (string d in interaction.dialogs)
         {
-            Player player = GameManager.Instance.Player.GetComponent<Player>();
-
-            player.interacting = false;
-            interaction.completed = true;
-            mission.completed = true;
-            Debug.Log("Mision completada: " + mission.code);
-
-            if (mission.rewardName != null && mission.rewardName != "")
+            if (d != last)
             {
-                player.AddReward(mission.rewardName);
+                dialogTexts.Add(new DialogData("/emote:Normal/" + d, interaction.character));
             }
-            player.acceptedMissions.Remove(mission);
-        });
-        GameManager.Instance.DialogManager.Show(dialogData);
-    }
-
-    private void starInteraction(Interaction interaction)
-    {
-        // Siempre que la interaccion este abierta
-        if (!interaction.completed)
-        {
-            switch (interaction.type)
+            else
             {
-                case 1: // Nueva mision
-                    Mission m = MissionManager.Instance.Missions.FirstOrDefault(m => m.code == interaction.missionCode);
+                dialogTexts.Add(new DialogData("/emote:Normal/" + d, interaction.character, () =>
+                {
+                    interaction.completed = true;
+                    Mission m = MissionManager.Instance.Missions.FirstOrDefault(m => m.code == interaction.missionCode && m.completed == false);
                     if (m != null)
                     {
                         player.AddMission(m);
                     }
                     else
                     {
-                        Debug.Log(m);
-                        Debug.LogError("interactionCallback: Se esperaba una nueva mision x interaccion, pero no encontramos la mision");
+                        Debug.LogError("No se encontro la mision: " + interaction.missionCode + " para asignar al jugador");
                     }
-                    break;
-                case 2: // Item por recibir
-                    player.AddReward(interaction.itemToGive);
-                    break;
-                case 3: // Finalizar mision
-                    Mission m2 = player.acceptedMissions.FirstOrDefault(m => m.code == interaction.missionCode);
-                    if (m2 != null)
-                    {
-                        m2.completed = true;
-                        this.startDialogueToFinish(interaction, m2);
-                    }
-                    else
-                    {
-                        Debug.Log(m2);
-                        Debug.LogError("interactionCallback: Se esperaba una finalizar una mision x interaccion, pero no encontramos la mision");
-                    }
-                    break;
-                default:
-                    break;
+                    player.interacting = false;
+                }));
             }
-            interaction.completed = true;
         }
-        GameManager.Instance.Player.GetComponent<Player>().interacting = false;
+        GameManager.Instance.DialogManager.Show(dialogTexts);
+    }
+
+    public void GiveAItem(Interaction interaction)
+    {
+        List<DialogData> dialogTexts = new List<DialogData>();
+        string last = interaction.dialogs.Last();
+
+        foreach (string d in interaction.dialogs)
+        {
+            if (d != last)
+            {
+                dialogTexts.Add(new DialogData("/emote:Normal/" + d, interaction.character));
+            }
+            else
+            {
+                dialogTexts.Add(new DialogData("/emote:Normal/" + d, interaction.character, () =>
+                {
+                    interaction.completed = true;
+                    player.AddReward(interaction.itemToGive);
+                    player.interacting = false;
+                }));
+            }
+        }
+        GameManager.Instance.DialogManager.Show(dialogTexts);
+    }
+
+    public void FinishAMission(Interaction interaction)
+    {
+        List<DialogData> dialogTexts = new List<DialogData>();
+
+        Mission mission = player.acceptedMissions.FirstOrDefault(m => m.code == interaction.missionCode);
+        interaction.dialogs.Add("Mision '" + mission.missionName + "' completada/click//close/");
+        string last = interaction.dialogs.Last();
+
+        foreach (string d in interaction.dialogs)
+        {
+            if (d != last)
+            {
+                dialogTexts.Add(new DialogData("/emote:Normal/" + d, interaction.character));
+            }
+            else
+            {
+                dialogTexts.Add(new DialogData("/emote:Normal/" + d, interaction.character, () =>
+                {
+                    interaction.completed = true;
+                    player.FinishMission(mission);
+                    player.interacting = false;
+                }));
+            }
+        }
+        GameManager.Instance.DialogManager.Show(dialogTexts);
     }
 
     #endregion

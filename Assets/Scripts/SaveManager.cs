@@ -116,7 +116,7 @@ public static class SaveManager
         if (File.Exists(dataPath))
         {
             byte[] bytes = Encoding.Default.GetBytes(File.ReadAllText(dataPath));
-            MissionWrapper wrapper = JsonUtility.FromJson<MissionWrapper>(Encoding.UTF8.GetString(bytes));
+            InteractionWrapper wrapper = JsonUtility.FromJson<InteractionWrapper>(Encoding.UTF8.GetString(bytes));
             Debug.Log("Interacciones cargadas");
             return wrapper.interactions;
         }

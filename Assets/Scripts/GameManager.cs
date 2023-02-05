@@ -42,7 +42,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        dialogManager.Hide();
+        DialogData dialogData = new DialogData("/close/");
+        GameManager.Instance.DialogManager.Show(dialogData);
+
+        LoadInteractions();
     }
 
     private void LateUpdate()
@@ -51,11 +54,14 @@ public class GameManager : MonoBehaviour
         {
             Player p = Player.GetComponent<Player>();
             SaveManager.SavePlayerData(new PlayerData(p));
+            SaveManager.SaveInteractionsData(new InteractionWrapper(interactions));
+            // SaveManager.SaveMissionsData();
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
             PlayerData pd = SaveManager.LoadPlayerData();
             Player.GetComponent<Player>().loadFromPlayerData(pd);
+            LoadInteractions();
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
@@ -69,5 +75,26 @@ public class GameManager : MonoBehaviour
 
         PlayerData pd = SaveManager.LoadPlayerData();
         Player.GetComponent<Player>().loadFromPlayerData(pd);
+    }
+
+    private void LoadInteractions()
+    {
+        // Cargar las interacciones
+        interactions = SaveManager.LoadInteractionsData();
+
+        // Distribuir las interacciones
+        GameObject[] npcs = GameObject.FindGameObjectsWithTag("NPC");
+        foreach (GameObject npc in npcs)
+        {
+            NPC npcScript = npc.GetComponent<NPC>();
+            npcScript.interactions = new List<Interaction>();
+            foreach (Interaction interaction in interactions)
+            {
+                if (interaction.character == npc.name)
+                {
+                    npcScript.interactions.Add(interaction);
+                }
+            }
+        }
     }
 }

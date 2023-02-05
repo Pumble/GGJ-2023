@@ -17,38 +17,11 @@ public class Mission
     public string missionName;
     public string code;
     public string description;
-    public string parentCode; // Si es nulo: es padre o raiz, si no: es submision
     public bool completed;
 
     // Objetos
     public string rewardName;
-
-    // Dialogos
-    public string requestDialogue;
-    public string completedMissionDialogue;
-    //private List<Interaction> interactions = new List<Interaction>();
-    //public Interaction[] interactionsArray;
-
-    // Items por checkear
-    //public List<string> itemsToCheck = new List<string>();
-
-    #endregion
-
-    #region Propiedades
-
-    //public List<Interaction> Interactions
-    //{
-    //    get
-    //    {
-    //        interactions = new List<Interaction>(interactionsArray);
-    //        return interactions;
-    //    }
-    //    set
-    //    {
-    //        interactions = value;
-    //        interactionsArray = interactions.ToArray();
-    //    }
-    //}
+    public string itemRequired;
 
     #endregion
 
@@ -65,30 +38,6 @@ public class Mission
     }
 
     #endregion
-
-    public void StartMission()
-    {
-        byte[] bytes = Encoding.Default.GetBytes("/emote:Normal//sound:missionAdded/Nueva mision: " + this.requestDialogue);
-        DialogData dialogData = new DialogData(Encoding.UTF8.GetString(bytes), "Player");
-        GameManager.Instance.DialogManager.Show(dialogData);
-    }
-
-    public void FinishMission()
-    {
-        DialogData dialogData = new DialogData("/emote:Normal//sound:missionCompleted/" + this.completedMissionDialogue, "Player", () =>
-        {
-            Player p = GameManager.Instance.Player.GetComponent<Player>();
-            if (this.rewardName != null && this.rewardName != "")
-                p.AddReward(this.rewardName);
-            p.acceptedMissions.Remove(this);
-        });
-        GameManager.Instance.DialogManager.Show(dialogData);
-    }
-
-    //public List<Interaction> GetInteractions(string code)
-    //{
-    //    return interactions.FindAll(i => i.missionCode == code);
-    //}
 }
 
 /**
@@ -121,30 +70,17 @@ public class MissionData
     public string missionName;
     public string code;
     public string description;
-    public string parentCode; // Si es nulo: es padre o raiz, si no: es submision
     public bool completed;
     public string rewardName;
-    public string requestDialogue;
-    public string completedMissionDialogue;
+    public string itemRequired;
 
     public MissionData(Mission mission)
     {
         this.missionName = mission.missionName;
         this.code = mission.code;
         this.description = mission.description;
-        this.parentCode = mission.parentCode;
         this.completed = mission.completed;
-
         this.rewardName = mission.rewardName;
-        this.requestDialogue = mission.requestDialogue;
-        this.completedMissionDialogue = mission.completedMissionDialogue;
-        //this.itemsToCheck = mission.itemsToCheck;
-        //this.interactionsArray = mission.Interactions.ToArray();
-
-        //this.subMissionsArray = new MissionData[mission.SubMissions.Count];
-        //for (int i = 0; i < mission.SubMissions.Count; i++)
-        //{
-        //    this.subMissionsArray[i] = new MissionData(mission.SubMissions[i]);
-        //}
+        this.itemRequired = mission.itemRequired;
     }
 }
